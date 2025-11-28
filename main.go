@@ -344,7 +344,7 @@ func showSuccess(text string) {
 	)
 
 	logger.Printf("showSuccess(): Mensagem preparada, tamanho: %d caracteres", len(msg))
-	_ = displayPopup(msg)
+	_ = displayPopup(preview)
 }
 
 func truncateText(text string, maxLength int) string {
