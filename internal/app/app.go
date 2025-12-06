@@ -9,6 +9,7 @@ import (
 	"github.com/Marlliton/tmux-copy-plugin/internal/clipboard"
 	"github.com/Marlliton/tmux-copy-plugin/internal/config"
 	"github.com/Marlliton/tmux-copy-plugin/internal/logger"
+	"github.com/Marlliton/tmux-copy-plugin/internal/notification"
 	"github.com/Marlliton/tmux-copy-plugin/internal/tmux"
 )
 
@@ -115,17 +116,23 @@ func escapeForShell(s string) string {
 func showSuccess(cfg config.Config, text string) error {
 	logger.Logger.Printf("showSuccess(): Preparando mensagem de sucesso")
 	preview := text
-	if len(text) > 350 {
-		preview = text[:350] + "..."
-		logger.Logger.Printf("showSuccess(): Texto truncado de %d para 350 caracteres", len(text))
+	if len(text) > 80 {
+		preview = text[:80] + "..."
+		logger.Logger.Printf("showSuccess(): Texto truncado de %d para 80 caracteres", len(text))
 	}
 
 	switch cfg.NotificationStyle {
 	case config.StylePreview:
+		if len(text) > 350 {
+			preview = text[:350] + "..."
+			logger.Logger.Printf("showSuccess(): Texto truncado de %d para 350 caracteres", len(text))
+		}
 		logger.Logger.Printf("showSuccess(): Mensagem preparada, tamanho: %d caracteres", len(preview))
 		return displayPopup(preview)
 	case config.StyleMessage:
 		return exec.Command("tmux", "display-message", "-d", "3000", "✔ Copied text!").Run()
+	case config.StyleSystem:
+		return notification.Send("✔ Copied text!", preview)
 	default:
 		return nil
 	}
