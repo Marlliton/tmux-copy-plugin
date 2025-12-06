@@ -26,7 +26,6 @@ Add the following configuration to your `~/.tmux.conf` file:
 
 ```tmux
 ##### COPY MODE #####
-bind y copy-mode
 set -g mouse on
 set-window-option -g mode-keys vi
 # Copy with mouse automatically
