@@ -72,6 +72,10 @@ func getToolArgs(tool string) []string {
 		args = zero
 	case xsell:
 		args = []string{"--clipboard", "--input"}
+	case clip:
+		args = zero
+	case pbcopy:
+		args = zero
 	default:
 		args = zero
 	}
