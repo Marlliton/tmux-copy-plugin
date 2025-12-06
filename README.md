@@ -15,7 +15,7 @@ This plugin was created to address a common issue: when `tmux` is used within Ne
 Install directly using `go install`:
 
 ```bash
-go install github.com/Marlliton/tmux-copy-plugin@latest
+go install github.com/Marlliton/tmux-copy-plugin@v1.0.4
 ```
 
 This command will download, build, and install the `tmux-copy-plugin` executable to your `$GOPATH/bin`.
