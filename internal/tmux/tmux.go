@@ -59,17 +59,13 @@ func SetTmuxOption(option, value string) error {
 
 func GetTmuxBuffer() (string, error) {
 	logger.Logger.Printf("getTmuxBuffer(): Obtendo buffer do tmux")
-	cmd := exec.Command("tmux", "show-buffer")
+	cmd := exec.Command("tmux", "save-buffer", "-")
 	out, err := cmd.Output()
 	if err != nil {
-		logger.Logger.Printf("getTmuxBuffer(): ERRO - %v", err)
-		return "", errors.New("there is nothing in the buffer")
+		logger.Logger.Printf("getTmuxBuffer(): INFO: 'save-buffer -' falhou, provavelmente sem seleção (err: %v)", err)
+		return "", nil // Not an error, just no selection
 	}
 	text := string(out)
-	if text == "" {
-		logger.Logger.Printf("getTmuxBuffer(): ERRO - Buffer vazio")
-		return "", errors.New("no text selected")
-	}
 
 	logger.Logger.Printf("getTmuxBuffer(): Buffer obtido, primeiros 100 chars: '%s'",
 		truncateText(text, 100))

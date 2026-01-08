@@ -12,6 +12,7 @@ import (
 
 const (
 	// linux
+	wlClip = "wl-clipboard"
 	xclip  = "xclip"
 	wlcopy = "wl-copy"
 	xsell  = "xsel"
@@ -42,7 +43,7 @@ func getPlatformTools() []string {
 	var tools []string
 	switch runtime.GOOS {
 	case "linux":
-		tools = []string{xclip, wlcopy, xsell}
+		tools = []string{wlClip, xclip, wlcopy, xsell}
 	case "windows":
 		tools = []string{clip}
 	case "darwin":
@@ -66,6 +67,8 @@ func getToolArgs(tool string) []string {
 	var args []string
 
 	switch tool {
+	case wlClip:
+		args = append(args, "wl-copy")
 	case xclip:
 		args = []string{"-selection", "clipboard"}
 	case wlcopy:

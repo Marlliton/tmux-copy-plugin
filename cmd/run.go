@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/Marlliton/tmux-copy-plugin/internal/app"
 	"github.com/Marlliton/tmux-copy-plugin/internal/config"
 	"github.com/spf13/cobra"
@@ -18,8 +16,6 @@ to the system clipboard, ensuring multi-line copies work even inside Neovim.
 You can define a notification type:
 	preview, msg, system or none`,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-		notify, _ := cmd.Flags().GetString("notify")
-		fmt.Println("run called, notification: ", notify)
 		return cfg.Validate()
 	},
 	RunE: func(cmd *cobra.Command, args []string) error {

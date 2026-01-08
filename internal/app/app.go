@@ -64,6 +64,12 @@ func Run(cfg config.Config) error {
 		logger.Logger.Printf("run(): ERRO getTmuxBuffer - %v", err)
 		return err
 	}
+
+	if text == "" {
+		logger.Logger.Printf("run(): Buffer vazio, nenhuma ação necessária")
+		return nil
+	}
+
 	logger.Logger.Printf("run(): Buffer obtido, tamanho: %d caracteres", len(text))
 
 	clipboardTool, exists := clipboard.HasTool()
